@@ -1,3 +1,15 @@
-<h1>
-  {{title}}
-</h1>
+<div class="ui menu">
+  <a class="item" routerLink="/filmy" routerLinkActive="active">
+    <i class="video icon"></i>
+    {{ title }}
+  </a>
+  <div class="right menu">
+    <div class="item">
+      <div class="ui transparent icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
