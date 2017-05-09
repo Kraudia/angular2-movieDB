@@ -17,9 +17,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'Allegro'`, async(() => {
+  it(`should have as title 'Allegro MovieDB'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Allegro');
+    expect(app.title).toEqual('Allegro MovieDB');
   }));
 });

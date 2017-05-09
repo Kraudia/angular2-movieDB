@@ -6,12 +6,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { MoviesComponent } from './movies/movies.component';
+import { MoviesService } from './movies/movies.service';
 
 const appRoutes: Routes = [
   {
     path: 'filmy',
     component: MoviesComponent,
-    data: { title: 'Allegro' }
+    data: { title: 'Allegro MovieDB' }
   },
   { path: '',
     redirectTo: '/filmy',
@@ -30,7 +31,9 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    MoviesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

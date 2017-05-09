@@ -1,3 +1,27 @@
-<p>
-  movies works!
-</p>
+<div class="ui five doubling cards">
+  <div class="card" *ngFor="let movie of movies | async">
+    <div class="image">
+      <img  class="ui middle aligned tiny image" src="http://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+    </div>
+    <div class="content">
+      <div class="header">
+          {{ movie.title }}
+      </div>
+
+      <div class="description">
+        Popularność: {{ movie.popularity  | number : '1.0-1' }}
+        <br>Liczba głosów: {{ movie.vote_count }}
+      </div>
+    </div>
+    <div class="extra content">
+      <span class="right floated">
+        <h3>
+          <i class="star icon"></i>
+          {{ movie.vote_average }}
+        </h3>
+
+      </span>
+      {{ movie.release_date }}
+    </div>
+  </div>
+</div>
