@@ -10,9 +10,9 @@ import { MoviesService } from './movies/movies.service';
 import { HeaderComponent } from './header/header.component';
 
 const appRoutes: Routes = [
-  { path: 'filmy', component: MoviesComponent },
-  { path: '', redirectTo: '/filmy', pathMatch: 'full' },
-  { path: '**', redirectTo: '/filmy' }
+  { path: 'home', component: MoviesComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

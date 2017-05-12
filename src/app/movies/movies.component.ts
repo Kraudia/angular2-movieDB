@@ -16,6 +16,7 @@ export class MoviesComponent implements OnInit {
   errorMessage: string;
   movies: Observable<Movie[]>;
   selectedMovie: Movie;
+  path: string;
 
   constructor(private moviesService: MoviesService) { }
 
@@ -29,7 +30,17 @@ export class MoviesComponent implements OnInit {
   }
 
   getMovies() {
+    this.path = "Popularne filmy";
     this.movies = this.moviesService.getMovies();
+  }
+
+  search(query: string) {
+    if (/\S/.test(query)) {
+      this.path = 'Szukasz \"' + query + '\"';
+      this.movies = this.moviesService.searchMovies(query);
+    } else {
+      this.getMovies();
+    }
   }
 
   getDetails(id: number) {

@@ -1,17 +1,25 @@
 <div class="ui message" id="search">
     <div class="ui container">
       <div class="ui fluid action input">
-        <input type="text">
-        <button class="ui orange right labeled icon button">
+        <input type="text" placeholder="czego szukasz?" #inputSearch>
+        <button class="ui orange right labeled icon button" (click)="search(inputSearch.value)">
           <i class="search icon"></i> Szukaj
         </button>
       </div>
     </div>
 </div>
 
-<div class="ui hidden divider"></div>
-
 <div class="ui container">
+  <div class="ui hidden divider"></div>
+
+  <div class="ui breadcrumb">
+    <a class="section" (click)="getMovies()">Strona główna</a>
+    <i class="right angle icon divider"></i>
+    <div class="active section">{{ path }}</div>
+  </div>
+
+  <div class="ui hidden divider"></div>
+
   <div *ngIf="selectedMovie" class="ui modal">
     <i class="close icon"></i>
     <div class="header">
