@@ -8,14 +8,25 @@ import { Movie } from './movie';
 
 @Injectable()
 export class MoviesService {
-  private moviesUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=68b4fe2a513155a58dd0af4adacb281b&language=pl&page=1';  // URL to web API
+  private url = 'https://api.themoviedb.org/3/movie/';
+  private apiKey = '68b4fe2a513155a58dd0af4adacb281b';
+  private language = 'pl';
 
   constructor (private http: Http) {}
 
   getMovies(): Observable<Movie[]> {
-    return this.http.get(this.moviesUrl)
+    let moviesUrl = `${this.url}popular?api_key=${this.apiKey}&language=${this.language}`;
+
+    return this.http.get(moviesUrl)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  getDetails(id : number) {
+    let detailsUrl = `${this.url}${id}?api_key=${this.apiKey}&language=${this.language}`;
+
+    return this.http.get(detailsUrl)
+      .map((res) => { return res.json() })
   }
 
   private extractData(res: Response) {

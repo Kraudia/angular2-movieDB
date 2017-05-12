@@ -1,5 +1,92 @@
-<div class="ui five doubling cards">
-  <div class="card" *ngFor="let movie of movies | async">
+<div *ngIf="selectedMovie" class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    {{ selectedMovie.title }}
+  </div>
+  <div class="content">
+    <div class="description">
+      <div class="ui padded grid">
+        <div class="sixteen wide mobile eight wide tablet four wide computer column">
+          <img class="ui fluid image" src="http://image.tmdb.org/t/p/w600{{selectedMovie.poster_path}}">
+        </div>
+
+        <div class="sixteen wide mobile eight wide tablet twelve wide computer column">
+          <div class="ui centered grid">
+
+            <!-- gatunki -->
+            <div  class="sixteen wide mobile sixteen wide tablet sixteen wide computer column">
+              <i *ngFor="let genre of selectedMovie.genres" class="ui label">{{ genre.name }}</i>
+            </div>
+            <!-- -->
+
+            <!-- opis -->
+            <div  class="sixteen wide mobile sixteen wide tablet sixteen wide computer column">
+              {{ selectedMovie.overview }}
+            </div>
+            <!-- -->
+
+            <!-- statystyki -->
+            <div  class="center aligned eight wide mobile eight wide tablet three wide computer column">
+              <div class="ui green statistic">
+                <div class="label">Ocena</div>
+                <div class="text value">{{ selectedMovie.vote_average }}</div>
+              </div>
+            </div>
+
+            <div  class="center aligned eight wide mobile eight wide tablet four wide computer column">
+              <div class="ui green statistic">
+                <div class="label">głosów</div>
+                <div class="text value">{{ selectedMovie.vote_count }}</div>
+              </div>
+            </div>
+
+            <div  class="center aligned eight wide mobile eight wide tablet four wide computer column">
+              <div class="ui teal statistic">
+                <div class="label">Popularność</div>
+                <div class="text value">{{ selectedMovie.popularity | number: '1.0-2' }}</div>
+              </div>
+            </div>
+
+            <div  class="center aligned eight wide mobile eight wide tablet five wide computer column">
+              <div class="ui blue statistic">
+                <div class="label">Data publikacji</div>
+                <div class="text value">{{ selectedMovie.release_date }}</div>
+              </div>
+            </div>
+            <!-- -->
+
+
+            <!-- produkcja -->
+            <div  class="sixteen wide mobile eight wide tablet eight wide computer column">
+              Kraj produkcji
+              <div class="ui list">
+                <div *ngFor="let country of selectedMovie.production_countries" class="item">
+                  <i class="{{country.iso_3166_1.toLowerCase()}} flag"></i><i>{{ country.name }}</i>
+                </div>
+              </div>
+            </div>
+
+            <div  class="sixteen wide mobile eight wide tablet eight wide computer column">
+              Firmy produkcyjne
+              <div class="ui list">
+                <div *ngFor="let country of selectedMovie.production_companies" class="item"><i>{{ country.name }}</i></div>
+              </div>
+            </div>
+            <!-- -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <a class="ui green button" *ngIf="selectedMovie.homepage" href="{{selectedMovie.homepage}}">Więcej</a>
+    <a class="ui disabled button" *ngIf="!selectedMovie.homepage" href="{{selectedMovie.homepage}}">Więcej</a>
+    <a class="ui blue button" (click)="close()">Zamknij</a>
+  </div>
+</div>
+
+<div class="ui link five doubling cards">
+  <div class="card" *ngFor="let movie of movies | async" (click)="onSelect(movie)">
     <div class="image">
       <img  class="ui middle aligned tiny image" src="http://image.tmdb.org/t/p/w500{{movie.poster_path}}">
     </div>
