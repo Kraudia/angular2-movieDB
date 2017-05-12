@@ -9,15 +9,9 @@ import { MoviesComponent } from './movies/movies.component';
 import { MoviesService } from './movies/movies.service';
 
 const appRoutes: Routes = [
-  {
-    path: 'filmy',
-    component: MoviesComponent,
-    data: { title: 'Allegro MovieDB' }
-  },
-  { path: '',
-    redirectTo: '/filmy',
-    pathMatch: 'full'
-  }
+  { path: 'filmy', component: MoviesComponent },
+  { path: '', redirectTo: '/filmy', pathMatch: 'full' },
+  { path: '**', redirectTo: '/filmy' }
 ];
 
 @NgModule({
