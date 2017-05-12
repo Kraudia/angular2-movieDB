@@ -21,6 +21,11 @@ export class MoviesComponent implements OnInit {
 
   ngOnInit() {
     this.getMovies();
+
+    // fix main menu to page on passing
+    $('#search').visibility({
+      type: 'fixed'
+    });
   }
 
   getMovies() {
