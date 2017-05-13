@@ -1,0 +1,12 @@
+<div class="ui floating message" id="search">
+  <div class="ui container">
+    <div class="ui big fluid action input">
+      <input #inputSearch type="text" placeholder="czego szukasz?"
+             (keyup.enter)="search(inputSearch.value)"
+             (blur)="search(inputSearch.value); inputSearch.value=''">
+      <button class="ui big orange right labeled icon button" type="submit" (click)="search(inputSearch.value)">
+        <i class="search icon"></i> Szukaj
+      </button>
+    </div>
+  </div>
+</div>

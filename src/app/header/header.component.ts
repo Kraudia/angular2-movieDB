@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   title = 'Allegro MovieDB';
+  popular = 'Popularne';
 
   constructor() { }
 

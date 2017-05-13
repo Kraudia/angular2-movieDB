@@ -8,24 +8,35 @@ import { AppComponent } from './app.component';
 import { MoviesComponent } from './movies/movies.component';
 import { MoviesService } from './movies/movies.service';
 import { HeaderComponent } from './header/header.component';
+import { SearchComponent } from './search/search.component';
+import { DetailsComponent } from './movies/details.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: MoviesComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home' }
+  { path: 'home', component: MoviesComponent },
+  { path: 'search/:query', component: MoviesComponent },
+  { path: 'movie/:id', component: DetailsComponent },
+  { path: '**',component: PageNotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     MoviesComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchComponent,
+    DetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, {useHash: true})
+  ],
+  exports: [
+    RouterModule
   ],
   providers: [
     MoviesService

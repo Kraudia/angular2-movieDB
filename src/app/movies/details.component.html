@@ -1,0 +1,90 @@
+<div class="ui container">
+  <h2 class="ui dividing header">
+    {{ selectedMovie?.title }}
+    <div class="sub header">{{ selectedMovie?.original_title }}</div>
+  </h2>
+
+  <div class="ui container" id="main"
+       [style.background-image]="'url(https://image.tmdb.org/t/p/w940'+selectedMovie?.backdrop_path+')'">
+    <div class="ui padded grid" id="content">
+      <div class="middle aligned sixteen wide mobile eight wide tablet four wide computer column">
+        <img class="ui fluid image" src="https://image.tmdb.org/t/p/w600{{selectedMovie?.poster_path}}">
+      </div>
+
+      <div class="sixteen wide mobile eight wide tablet twelve wide computer column">
+        <div class="ui centered grid">
+
+          <!-- gatunki -->
+          <div  class="sixteen wide mobile sixteen wide tablet sixteen wide computer column">
+            <i *ngFor="let genre of selectedMovie?.genres" class="ui orange label">{{ genre.name }}</i>
+          </div>
+          <!-- -->
+
+          <!-- opis -->
+          <div  class="sixteen wide mobile sixteen wide tablet sixteen wide computer column">
+            {{ selectedMovie?.overview }}
+          </div>
+          <!-- -->
+
+          <!-- statystyki -->
+          <div  class="center aligned eight wide mobile eight wide tablet three wide computer column">
+            <div class="ui green statistic">
+              <div class="label">Ocena</div>
+              <div class="text value">{{ selectedMovie?.vote_average }}</div>
+            </div>
+          </div>
+
+          <div  class="center aligned eight wide mobile eight wide tablet four wide computer column">
+            <div class="ui green statistic">
+              <div class="label">głosów</div>
+              <div class="text value">{{ selectedMovie?.vote_count }}</div>
+            </div>
+          </div>
+
+          <div  class="center aligned eight wide mobile eight wide tablet four wide computer column">
+            <div class="ui teal statistic">
+              <div class="label">Popularność</div>
+              <div class="text value">{{ selectedMovie?.popularity | number: '1.0-2' }}</div>
+            </div>
+          </div>
+
+          <div  class="center aligned eight wide mobile eight wide tablet five wide computer column">
+            <div class="ui blue statistic">
+              <div class="label">Data publikacji</div>
+              <div class="text value">{{ selectedMovie?.release_date }}</div>
+            </div>
+          </div>
+          <!-- -->
+
+
+          <!-- produkcja -->
+          <div  class="sixteen wide mobile eight wide tablet eight wide computer column">
+            Kraj produkcji
+            <div class="ui list">
+              <div *ngFor="let country of selectedMovie?.production_countries" class="item">
+                <i class="{{country.iso_3166_1.toLowerCase()}} flag"></i><i>{{ country.name }}</i>
+              </div>
+            </div>
+          </div>
+
+          <div  class="sixteen wide mobile eight wide tablet eight wide computer column">
+            Firmy produkcyjne
+            <div class="ui list">
+              <div *ngFor="let country of selectedMovie?.production_companies" class="item"><i>{{ country.name }}</i></div>
+            </div>
+          </div>
+          <!-- -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui hidden divider"></div>
+
+  <div class="ui animated button" tabindex="0" (click)="back()">
+    <div class="visible content">
+      <i class="left arrow icon"></i>
+    </div>
+    <div class="hidden content">Back</div>
+  </div>
+</div>

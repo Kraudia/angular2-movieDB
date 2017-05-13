@@ -1,4 +1,5 @@
 import { Component, OnInit }        from '@angular/core';
+import { ActivatedRoute, Router }   from '@angular/router';
 import { Observable }               from 'rxjs/Observable';
 import { MoviesService }            from './movies.service';
 import { Movie }                    from './movie';
@@ -18,15 +19,19 @@ export class MoviesComponent implements OnInit {
   selectedMovie: Movie;
   path: string;
 
-  constructor(private moviesService: MoviesService) { }
+  constructor(
+    private moviesService: MoviesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getMovies();
-
-    // fix main menu to page on passing
-    $('#search').visibility({
-      type: 'fixed'
-    });
+    this.route.params.subscribe(
+      params => {
+        let query = params['query'];
+        if (query) this.searchMovies(query);
+      });
   }
 
   getMovies() {
@@ -34,39 +39,12 @@ export class MoviesComponent implements OnInit {
     this.movies = this.moviesService.getMovies();
   }
 
-  search(query: string) {
-    if (/\S/.test(query)) {
-      this.path = 'Szukasz \"' + query + '\"';
-      this.movies = this.moviesService.searchMovies(query);
-    } else {
-      this.getMovies();
-    }
-  }
-
-  getDetails(id: number) {
-    this.moviesService.getDetails(id)
-      .subscribe(
-        questions => {
-          this.selectedMovie = questions;
-        },
-        error => this.errorMessage = <any>error);
+  searchMovies(query: string) {
+    this.path = "Szukaj \"" + query + "\"";
+    this.movies = this.moviesService.searchMovies(query);
   }
 
   onSelect(movie: Movie) {
-    this.getDetails(movie.id);
-    $('.ui.modal')
-      .modal('setting', 'transition', 'scale')
-      .modal({
-        blurring: true
-      })
-      .modal('show')
-    ;
+    this.router.navigate(['./../movie', movie.id]);
   }
-
-  close() {
-    $('.ui.modal')
-      .modal('hide')
-    ;
-  }
-
 }
