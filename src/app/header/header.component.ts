@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MoviesService }            from '../movies/movies.service';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   title = 'Allegro MovieDB';
-  popular = 'Popularne';
+  language : string;
 
-  constructor() { }
+  constructor(
+    private moviesService: MoviesService
+  ) { }
 
   ngOnInit() {
+    this.language = this.moviesService.getLanguage();
   }
 
+  changeLanguage(lang : string) {
+    if (lang === 'pl') this.moviesService.changeLanguage('pl');
+    else this.moviesService.changeLanguage('en');
+    location.reload();
+  }
 }

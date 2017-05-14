@@ -1,17 +1,4 @@
 <div class="ui container">
-  <div class="ui hidden divider"></div>
-
-  <div class="ui grid">
-    <div>
-
-    </div>
-    <div>
-
-    </div>
-  </div>
-
-  <div class="ui hidden divider"></div>
-
   <div class="ui link five doubling cards">
     <div class="card" *ngFor="let movie of movies | async" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
       <div class="image">
@@ -23,8 +10,13 @@
         </div>
 
         <div class="description">
-          Popularność: {{ movie.popularity  | number : '1.0-1' }}
-          <br>Liczba głosów: {{ movie.vote_count }}
+          <span *ngIf="language == 'pl'">Popularność</span>
+          <span *ngIf="language != 'pl'">Popularity</span>
+          : {{ movie.popularity  | number : '1.0-1' }}
+          <br>
+          <span *ngIf="language == 'pl'">Liczba głosów</span>
+          <span *ngIf="language != 'pl'">Vote count</span>
+          : {{ movie.vote_count }}
         </div>
       </div>
       <div class="extra content">

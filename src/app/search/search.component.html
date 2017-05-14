@@ -1,16 +1,24 @@
 <div class="ui floating message" id="search">
   <div class="ui container">
     <div class="ui big fluid action input">
-      <input #inputSearch
+      <input  *ngIf="language == 'pl'" #inputSearch
              type="text"
              placeholder="czego szukasz?"
+             (keyup.enter)="search(inputSearch.value)"
+             (blur)="search(inputSearch.value); inputSearch.value=''">
+
+      <input *ngIf="language != 'pl'" #inputSearch
+             type="text"
+             placeholder="what are you looking for?"
              (keyup.enter)="search(inputSearch.value)"
              (blur)="search(inputSearch.value); inputSearch.value=''">
 
       <div class="ui  grid">
         <div class="computer only tablet only row">
           <button class="ui big orange right labeled icon button" type="submit" (click)="search(inputSearch.value)">
-            <i class="search icon"></i> Szukaj
+            <i class="search icon"></i>
+            <span *ngIf="language == 'pl'">Szukaj</span>
+            <span *ngIf="language != 'pl'">Search</span>
           </button>
         </div>
         <div class="mobile only row">

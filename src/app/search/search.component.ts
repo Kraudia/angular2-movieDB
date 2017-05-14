@@ -1,5 +1,6 @@
 import { Component, OnInit }        from '@angular/core';
 import { Router }                   from '@angular/router';
+import { MoviesService }            from '../movies/movies.service';
 
 declare var $: any; //jQuery
 
@@ -9,11 +10,15 @@ declare var $: any; //jQuery
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  language : string;
+
   constructor(
+    private moviesService: MoviesService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.language = this.moviesService.getLanguage();
     this.sticky();
   }
 

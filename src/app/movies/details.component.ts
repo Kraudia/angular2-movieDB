@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router }   from '@angular/router';
-import { MoviesService }            from './../movies/movies.service';
-import { Movie }                    from './../movies/movie';
+import { MoviesService }            from './movies.service';
+import { Movie }                    from './movie';
 import {Location} from '@angular/common';
 
 @Component({
@@ -13,15 +13,16 @@ import {Location} from '@angular/common';
 export class DetailsComponent implements OnInit {
   selectedMovie: Movie;
   errorMessage: string;
+  language: string;
 
   constructor(
     private moviesService: MoviesService,
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location
   ) { }
 
   ngOnInit() {
+    this.language = this.moviesService.getLanguage();
     this.route.params.subscribe(
       params => {
         let id = params['id'];

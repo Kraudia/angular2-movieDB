@@ -14,10 +14,9 @@ declare var $: any;
 })
 
 export class MoviesComponent implements OnInit {
-  errorMessage: string;
   movies: Observable<Movie[]>;
-  selectedMovie: Movie;
   path: string;
+  language: string;
 
   constructor(
     private moviesService: MoviesService,
@@ -26,6 +25,7 @@ export class MoviesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.language = this.moviesService.getLanguage();
     this.getMovies();
     this.route.params.subscribe(
       params => {
