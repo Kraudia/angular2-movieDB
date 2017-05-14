@@ -1,17 +1,19 @@
 <div class="ui container">
-  <h2 class="ui orange header">
-    <span *ngIf="language == 'pl'">Popularne</span>
-    <span *ngIf="language != 'pl'">Popular</span>
-  </h2>
+  <h3>
+    <i class="search icon"></i>
+    <span *ngIf="language == 'pl'">Wyniki wyszukiwania:</span>
+    <span *ngIf="language != 'pl'">Search results:</span>
+    <span class="ui orange header"> {{ query }}</span>
+  </h3>
 
   <div class="ui link five doubling cards">
-    <div class="card" *ngFor="let movie of movies | async" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
+    <div class="card" *ngFor="let movie of searches" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
       <div class="image">
         <img  class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
       </div>
       <div class="content">
         <div class="header">
-            {{ movie.title }}
+          {{ movie.title }}
         </div>
 
         <div class="description">

@@ -6,17 +6,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { MoviesComponent } from './movies/movies.component';
-import { MoviesService } from './movies/movies.service';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './search/search.component';
-import { DetailsComponent } from './movies/details.component';
+import { DetailsComponent } from './details/details.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SearchMoviesComponent } from './search/search-movies.component';
+
+import { MoviesService } from './movies/movies.service';
+import { SearchService } from './search/search.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: MoviesComponent },
-  { path: 'search/:query', component: MoviesComponent },
   { path: 'movie/:id', component: DetailsComponent },
+  { path: 'search/:query', component: SearchMoviesComponent },
   { path: '**',component: PageNotFoundComponent }
 ];
 
@@ -27,7 +30,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     SearchComponent,
     DetailsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SearchMoviesComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,8 @@ const appRoutes: Routes = [
     RouterModule
   ],
   providers: [
-    MoviesService
+    MoviesService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

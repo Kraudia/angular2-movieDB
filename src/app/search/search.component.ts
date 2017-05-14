@@ -11,6 +11,7 @@ declare var $: any; //jQuery
 })
 export class SearchComponent implements OnInit {
   language : string;
+  holder: string;
 
   constructor(
     private moviesService: MoviesService,
@@ -19,6 +20,8 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.language = this.moviesService.getLanguage();
+    if (this.language == 'pl') this.holder = 'czego szukasz?';
+    else this.holder = 'what are you looking for?';
     this.sticky();
   }
 

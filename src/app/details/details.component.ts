@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router }   from '@angular/router';
-import { MoviesService }            from './movies.service';
-import { Movie }                    from './movie';
+import { MoviesService }            from '../movies/movies.service';
+import { Movie }                    from '../movies/movie';
 import {Location} from '@angular/common';
 
 @Component({

@@ -4,26 +4,13 @@ import { Observable }               from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Movie } from './movie';
-
 @Injectable()
-export class MoviesService {
-  private url = 'https://api.themoviedb.org/3/movie/';
+export class SearchService {
   private searchUrl = 'https://api.themoviedb.org/3/search/movie';
   private apiKey = '68b4fe2a513155a58dd0af4adacb281b';
   private language;
 
   constructor (private http: Http) {
-    if (localStorage.getItem('lang') == 'pl') this.language = 'pl';
-    else this.language = 'en';
-  }
-
-  getMovies(): Observable<Movie[]> {
-    let moviesUrl = `${this.url}popular?api_key=${this.apiKey}&language=${this.language}`;
-
-    return this.http.get(moviesUrl)
-      .map(this.extractData)
-      .catch(this.handleError);
   }
 
   searchMovies(query: string) {
@@ -31,22 +18,6 @@ export class MoviesService {
 
     return this.http.get(searchUrl)
       .map((res) => { return res.json() })
-  }
-
-  getDetails(id : number) {
-    let detailsUrl = `${this.url}${id}?api_key=${this.apiKey}&language=${this.language}`;
-
-    return this.http.get(detailsUrl)
-      .map((res) => { return res.json() })
-  }
-
-  changeLanguage(lang: string) {
-    localStorage.setItem('lang', lang);
-    this.language = lang;
-  }
-
-  getLanguage() {
-    return this.language;
   }
 
   private extractData(res: Response) {
