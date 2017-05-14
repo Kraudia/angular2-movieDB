@@ -34,7 +34,8 @@
   <div class="ui link five doubling cards">
     <div class="card" *ngFor="let movie of movies | async" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
       <div class="image">
-        <img  class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+        <img *ngIf="movie.poster_path" class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+        <img *ngIf="!movie.poster_path" class="ui middle aligned tiny image" src="./../../assets/no-image.png">
       </div>
       <div class="content">
         <div class="header">

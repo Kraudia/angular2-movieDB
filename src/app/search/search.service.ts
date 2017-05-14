@@ -13,8 +13,8 @@ export class SearchService {
   constructor (private http: Http) {
   }
 
-  searchMovies(query: string) {
-    let searchUrl = `${this.searchUrl}?api_key=${this.apiKey}&language=${this.language}&query=${query}`;
+  searchMovies(query: string, page: number) {
+    let searchUrl = `${this.searchUrl}?api_key=${this.apiKey}&language=${this.language}&query=${query}&page=${page}`;
 
     return this.http.get(searchUrl)
       .map((res) => { return res.json() })

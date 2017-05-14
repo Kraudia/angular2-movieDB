@@ -9,8 +9,9 @@
         <i class="right angle icon divider"></i>
         <div class="active section">
             <i class="search icon"></i>
-            <span *ngIf="language == 'pl'">Wyniki wyszukiwania dla </span>
-            <span *ngIf="language != 'pl'">Search results for </span>
+            {{ total_results }}
+            <span *ngIf="language == 'pl'">wyników wyszukiwania dla </span>
+            <span *ngIf="language != 'pl'">search results for </span>
             <span class="ui orange header"> {{ query }}</span>
         </div>
       </div>
@@ -39,7 +40,8 @@
   <div class="ui link five doubling cards">
     <div class="card" *ngFor="let movie of movies" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
       <div class="image">
-        <img  class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+        <img *ngIf="movie.poster_path" class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+        <img *ngIf="!movie.poster_path" class="ui middle aligned tiny image" src="./../../assets/no-image.png">
       </div>
       <div class="content">
         <div class="header">
@@ -67,5 +69,50 @@
         {{ movie.release_date }}
       </div>
     </div>
+  </div>
+
+
+  <div class="ui equal width grid">
+
+    <!-- prev -->
+    <div class="computer only tablet only column">
+      <button [disabled]="page == 1" class="ui fluid orange labeled icon button" (click)="goPage(-1)">
+        <i class="left chevron icon"></i>
+        <span *ngIf="language == 'pl'">Poprzednie</span>
+        <span *ngIf="language != 'pl'">Previous</span>
+      </button>
+    </div>
+
+    <div class="mobile only column">
+      <button [disabled]="page == 1" class="ui fluid orange button" (click)="goPage(-1)">
+        <i class="left chevron icon"></i>
+      </button>
+    </div>
+    <!-- -->
+
+    <!-- pages -->
+    <div class="column">
+      <div class="ui fluid basic disabled button">
+        {{page}} / {{ total_pages }}
+      </div>
+    </div>
+    <!-- -->
+
+    <!-- prev -->
+    <div class="computer only tablet only column">
+      <button [disabled]="page == total_pages" class="ui fluid orange right labeled icon button" (click)="goPage(1)">
+        <span *ngIf="language == 'pl'">Następne</span>
+        <span *ngIf="language != 'pl'">Next</span>
+        <i class="right chevron icon"></i>
+      </button>
+    </div>
+
+    <div class="mobile only column">
+      <button [disabled]="page == total_pages" class="ui fluid orange button" (click)="goPage(1)">
+        <i class="right chevron icon"></i>
+      </button>
+    </div>
+    <!-- -->
+
   </div>
 </div>

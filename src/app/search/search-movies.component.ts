@@ -13,6 +13,9 @@ import { Search }                    from '../movies/search';
 export class SearchMoviesComponent implements OnInit {
   searches: Search;
   movies: Movie[];
+  total_results: number;
+  total_pages: number;
+  page: number;
   query: string;
   language: string;
   sort: number;
@@ -29,16 +32,20 @@ export class SearchMoviesComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         this.query = params['query'];
-        this.searchMovies(this.query);
+        this.page = 1;
+        this.searchMovies(this.query, this.page);
       });
   }
 
-  searchMovies(query: string) {
-    this.searchService.searchMovies(query)
+  searchMovies(query: string, page: number) {
+    this.searchService.searchMovies(query, page)
       .subscribe(
         response => {
           this.searches = response;
           this.movies = response['results'];
+          this.total_results = response['total_results'];
+          this.total_pages = response['total_pages'];
+          this.page = response['page'];
         },
         error => console.error(error)
       );
@@ -77,6 +84,12 @@ export class SearchMoviesComponent implements OnInit {
         this.sort = 2;
       }
     }
+  }
+
+  goPage(go: number) {
+    let newPage = this.page + go;
+    if (newPage <= this.total_pages && newPage >= 1)
+      this.searchMovies(this.query, newPage);
   }
 
   onSelect(movie: Movie) {
