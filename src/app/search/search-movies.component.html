@@ -1,13 +1,43 @@
 <div class="ui container">
-  <h3>
-    <i class="search icon"></i>
-    <span *ngIf="language == 'pl'">Wyniki wyszukiwania:</span>
-    <span *ngIf="language != 'pl'">Search results:</span>
-    <span class="ui orange header"> {{ query }}</span>
-  </h3>
+  <div class="ui grid">
+    <div class="middle aligned sixteen wide mobile eight wide tablet eight wide computer column">
+      <div class="ui large breadcrumb">
+        <a class="section" routerLink="/home" routerLinkActive="active">
+          <span *ngIf="language == 'pl'">Strona główna</span>
+          <span *ngIf="language != 'pl'">Home</span>
+        </a>
+        <i class="right angle icon divider"></i>
+        <div class="active section">
+            <i class="search icon"></i>
+            <span *ngIf="language == 'pl'">Wyniki wyszukiwania dla </span>
+            <span *ngIf="language != 'pl'">Search results for </span>
+            <span class="ui orange header"> {{ query }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right aligned middle aligned sixteen wide mobile eight wide tablet eight wide computer column">
+      <div class="ui text compact menu">
+        <div class="header item">
+          <span *ngIf="language == 'pl'">Sortuj wg</span>
+          <span *ngIf="language != 'pl'">Sort by</span>
+        </div>
+        <a class="item" (click)="sortMovies('title')">
+          <i class="font icon"></i>
+          <span *ngIf="language == 'pl'">Tytuł</span>
+          <span *ngIf="language != 'pl'">Title</span>
+        </a>
+        <a class="item" (click)="sortMovies('popularity')">
+          <i class="empty star icon"></i>
+          <span *ngIf="language == 'pl'">Popularność</span>
+          <span *ngIf="language != 'pl'">Popularity</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <div class="ui link five doubling cards">
-    <div class="card" *ngFor="let movie of searches" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
+    <div class="card" *ngFor="let movie of movies" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
       <div class="image">
         <img  class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
       </div>
