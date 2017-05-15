@@ -41,7 +41,7 @@
     <div class="card" *ngFor="let movie of movies" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
       <div class="image">
         <img *ngIf="movie.poster_path" class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
-        <img *ngIf="!movie.poster_path" class="ui middle aligned tiny image" src="./../../assets/no-image.png">
+        <img *ngIf="!movie.poster_path" class="ui middle aligned tiny image" src="https://placehold.it/500x740">
       </div>
       <div class="content">
         <div class="header">
